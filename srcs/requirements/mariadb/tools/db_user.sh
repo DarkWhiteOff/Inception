@@ -1,10 +1,5 @@
 #!/bin/sh
 
-# SQL_USER=ZAMGAR
-# SQL_PASSWORD=0421
-# SQL_ROOT_PASSWORD=0421
-# SQL_DATABASE=wordpress
-
 service mysql start;
 # mariadbd-safe --datadir=/var/lib/mysql &
 mysql -e "CREATE DATABASE IF NOT EXISTS \`${SQL_DATABASE}\`;"
