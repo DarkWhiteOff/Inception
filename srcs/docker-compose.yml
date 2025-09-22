@@ -64,3 +64,6 @@ volumes:
 networks:
   inception:
     driver: bridge
+
+# docker compose -f docker-compose.yml up -d --build
+# docker rm -vf $(docker ps -aq)
