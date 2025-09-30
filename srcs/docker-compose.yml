@@ -66,5 +66,8 @@ networks:
   inception:
     driver: bridge
 
+# docker run -it nginx / docker run -d nginx
+# docker ps
+# docker stop
 # docker compose -f docker-compose.yml up -d --build
 # docker rm -vf $(docker ps -aq)
