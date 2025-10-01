@@ -1,5 +1,14 @@
 # version: ‘3’
 
+volumes:
+  wordpress:
+    
+  mariadb:
+    
+
+networks:
+  
+
 services:
   mariadb:
     
@@ -10,20 +19,20 @@ services:
   wordpress:
     
 
-volumes:
-  wordpress:
-    
-  mariadb:
-    
+# docker build srcs/requirements/mariadb -t mariadb -> build une image depuis le Dockerfile en lui donnant un nom
+# docker run -it nginx / docker run -d nginx -> run un container en se basant sur l'image build, -it pour interagir avec, -d pour le run en background 
+# docker ps -> liste les running containers
+# docker stop [id] -> stop un running container
+# docker rm [id] -> remove a container
+# docker rmi [id] -> remove an image
+# docker exec [id] -> exec a cmd in a running container (-d)
+# docker logs [id] -> see logs
 
-networks:
-  
-
-# docker build srcs/requirements/mariadb -t mariadb -> build un container en lui donnant un nom
-# docker run -it nginx / docker run -d nginx -> run un container, -it pour interagir avec, -d pour le run en background 
-# docker ps -> liste les containers actifs
-# docker stop [id] -> stop un container
 # docker compose -f docker-compose.yml up -d --build -> compose les container ensemble
-# docker rm -vf $(docker ps -aq) -> supprime toutes les images
+# docker compose down / docker compose down -v
+https://github.com/Forstman1/inception-42/tree/main?tab=readme-ov-file#what-are-the-most-common-commands-are-used-in-docker-compose-
+
+
+# docker rm -vf $(docker ps -aq) -> supprime tout
 
 # Other commands : docker volume ps
