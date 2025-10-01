@@ -1,0 +1,29 @@
+# version: ‘3’
+
+services:
+  mariadb:
+    
+
+  nginx:
+    
+
+  wordpress:
+    
+
+volumes:
+  wordpress:
+    
+  mariadb:
+    
+
+networks:
+  
+
+# docker build srcs/requirements/mariadb -t mariadb -> build un container en lui donnant un nom
+# docker run -it nginx / docker run -d nginx -> run un container, -it pour interagir avec, -d pour le run en background 
+# docker ps -> liste les containers actifs
+# docker stop [id] -> stop un container
+# docker compose -f docker-compose.yml up -d --build -> compose les container ensemble
+# docker rm -vf $(docker ps -aq) -> supprime toutes les images
+
+# Other commands : docker volume ps
