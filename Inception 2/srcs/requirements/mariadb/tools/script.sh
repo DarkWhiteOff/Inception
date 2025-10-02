@@ -1,10 +1,8 @@
 #!/bin/bash
 
-service mysql start
+mysqld_safe --datadir=/var/lib/mysql &
 
-db_name = Database Name
-db_user = User
-db_pwd = User Password
+sleep 2
 
 db_name=nnnname
 db_user=uuuuser
@@ -17,3 +15,5 @@ echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '12345' ;" >> db1.sql
 echo "FLUSH PRIVILEGES;" >> db1.sql
 
 mysql < db1.sql
+
+wait

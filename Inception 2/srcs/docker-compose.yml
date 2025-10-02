@@ -30,7 +30,7 @@ services:
 
 # docker compose -f docker-compose.yml up -d --build -> compose les container ensemble
 # docker compose down / docker compose down -v
-https://github.com/Forstman1/inception-42/tree/main?tab=readme-ov-file#what-are-the-most-common-commands-are-used-in-docker-compose-
+# https://github.com/Forstman1/inception-42/tree/main?tab=readme-ov-file#what-are-the-most-common-commands-are-used-in-docker-compose-
 
 
 # docker rm -vf $(docker ps -aq) -> supprime tout
