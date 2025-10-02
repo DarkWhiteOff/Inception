@@ -1,11 +1,13 @@
-FROM debian:buster
+FROM debian:11
 
-RUN apt update && apt upgrade -y
+RUN apt-get update -y
+RUN apt-get upgrade -y
+RUN apt update -y
+RUN apt upgrade -y
+RUN apt install php-fpm php-mysql -y
+RUN apt install curl -y
 
-RUN rm -f /etc/php/8.4/fpm/pool.d/www.conf
-COPY config/php.conf /etc/php/8.4/fpm/pool.d/www.conf
+COPY tools/script.sh /
+RUN chmod +x /script.sh
 
-COPY tools/auto_config.sh /auto_config.sh
-RUN chmod +x /auto_config.sh
-
-ENTRYPOINT ["sh", "auto_config.sh"]
+CMD ["/script.sh"]
