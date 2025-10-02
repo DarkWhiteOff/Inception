@@ -1,8 +1,12 @@
-FROM debian:buster
+FROM debian:11
 
 RUN apt update && apt upgrade -y
+RUN apt install nginx -y
+RUN apt install openssl -y
 
-RUN rm -f /etc/nginx/nginx.conf
-COPY config/nginx.conf /etc/nginx/nginx.conf
+COPY config/default /etc/nginx/sites-available/default
 
-CMD ["nginx", "-g", "daemon off;"]
+COPY tools/script.sh /
+RUN chmod +x /script.sh
+
+CMD ["/script.sh"]
