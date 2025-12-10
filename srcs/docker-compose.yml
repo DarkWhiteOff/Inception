@@ -1,76 +1,56 @@
-# version: ‘3’
-
-services:
-  mariadb:
-    container_name: mariadb
-    networks:
-      - inception
-    build:
-      context: requirements/mariadb
-      dockerfile: Dockerfile
-    env_file: .env
-    volumes:
-      - mariadb:/var/lib/mysql
-    restart: unless-stopped
-    expose:
-     - "3306"
-
-  nginx:
-    container_name: nginx
-    networks:
-      - inception
-    depends_on:
-      - wordpress
-    build:
-      context: requirements/nginx
-      dockerfile: Dockerfile
-    env_file: .env
-    volumes:
-      - wordpress:/var/www/wordpress
-    restart: on-failure
-    ports:
-      - "8080:80"   # HTTP
-      - "8443:443"  # HTTPS
-
-  wordpress:
-    container_name: wordpress
-    networks:
-      - inception
-    depends_on:
-      - mariadb
-    build:
-      context: requirements/wordpress
-      dockerfile: Dockerfile
-    env_file: .env
-    volumes:
-      - wordpress:/var/www/wordpress
-    restart: on-failure
-    expose:
-      - "9000"
+networks:
+  Inception:
+    name: Inception
+    driver: bridge
 
 volumes:
   wordpress:
     driver: local
     driver_opts:
-      type: 'none'
+      device: '/home/zz/data/wordpress'
       o: 'bind'
-      device: '/home/zamgar/Documents/Inception/data/wordpress'
+      type: 'none'
   mariadb:
     driver: local
     driver_opts:
-      type: 'none'
+      device: '/home/zz/data/mariadb'
       o: 'bind'
-      device: '/home/zamgar/Documents/Inception/data/mariadb'
+      type: 'none'
 
-networks:
-  inception:
-    driver: bridge
+services:
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb
+    env_file:
+      - .env
+    volumes:
+      - mariadb:/var/lib/mysql
+    networks:
+      - Inception
+    restart: always
 
-# docker build srcs/requirements/mariadb -t mariadb -> build un container en lui donnant un nom
-# docker run -it nginx / docker run -d nginx -> run un container, -it pour interagir avec, -d pour le run en background 
-# docker ps -> liste les containers actifs
-# docker stop [id] -> stop un container
-# docker compose -f docker-compose.yml up -d --build -> compose les container ensemble
-# docker rm -vf $(docker ps -aq) -> supprime toutes les images
+  wordpress:
+    container_name: wordpress
+    build: ./requirements/wordpress
+    env_file:
+      - .env
+    depends_on:
+      - mariadb
+    volumes:
+      - wordpress:/var/www/wordpress
+    networks:
+      - Inception
+    restart: always
 
-# Other commands : docker volume ps
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx
+    ports:
+      - 443:443
+    depends_on:
+      - wordpress
+    volumes:
+      - wordpress:/var/www/wordpress
+    networks:
+      - Inception
+    restart: always

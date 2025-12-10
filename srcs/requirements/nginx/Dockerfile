@@ -1,18 +1,24 @@
-FROM debian:12
+FROM	debian:bookworm
 
-RUN apt update && apt upgrade -y
-RUN apt install nginx -y
-RUN apt install openssl -y
+RUN		apt update -y
+RUN		apt upgrade -y
+RUN		apt install nginx -y
+RUN		apt install openssl -y
+RUN		apt install nano -y
+RUN		apt clean
 
-RUN mkdir -p /etc/nginx/ssl
-RUN openssl req -x509 -nodes -out /etc/nginx/ssl/inception.crt -keyout /etc/nginx/ssl/inception.key -subj "/C=FR/ST=IDF/L=Paris/O=42/OU=42/CN=login.42.fr/UID=login"
+RUN		mkdir -p /etc/nginx/ssl
 
-RUN rm -f /etc/nginx/nginx.conf
-COPY config/nginx.conf /etc/nginx/nginx.conf
+RUN		openssl req -x509 -nodes \
+		-out /etc/nginx/ssl/inception.crt \
+		-keyout /etc/nginx/ssl/inception.key \
+		-subj "/C=FR/ST=id/L=paris/O=42/OU=1337/CN=zamgar.42.fr/UID=zamgar"
 
-RUN chmod 755 /var/www/html
-RUN chown -R www-data:www-data /var/www/html
+COPY	conf/nginx.conf /etc/nginx/nginx.conf
 
-EXPOSE 80 443
+RUN		mkdir -p /var/www/wordpress
+RUN		chmod 775 /var/www/wordpress
+RUN		chown -R www-data:www-data /var/www/wordpress
 
-CMD ["nginx", "-g", "daemon off;"]
+
+CMD	["nginx", "-g", "daemon off;"]
