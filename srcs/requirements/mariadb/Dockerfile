@@ -1,11 +1,10 @@
-FROM	debian:bookworm
+FROM debian:bookworm
 
-RUN		apt update -y
-RUN		apt upgrade -y
-RUN		apt install mariadb-server -y
+RUN  apt update -y && apt upgrade -y
+RUN  apt install mariadb-server -y
 
-COPY    conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
-COPY    tools/mariadb_setup.sh /
-RUN     chmod +x /mariadb_setup.sh
+COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+COPY tools/mariadb_setup.sh /usr/local/bin/mariadb_setup.sh
+RUN  chmod +x /usr/local/bin/mariadb_setup.sh
 
-CMD [ "/bin/bash", "/mariadb_setup.sh" ]
+CMD  ["/usr/local/bin/mariadb_setup.sh" ]
