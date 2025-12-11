@@ -1,10 +1,23 @@
+COMPOSEFILE = srcs/docker-compose.yml
+
+CC = docker compose
+FLAGS = -f
+
 all: up
 
 up:
-	@ docker compose -f srcs/docker-compose.yml up
+	@ $(CC) $(FLAGS) $(COMPOSEFILE) up
 
 down:
-	@ docker compose -f srcs/docker-compose.yml down
+	@ $(CC) $(FLAGS) $(COMPOSEFILE) down
 
-rm:
-	@ docker compose -f srcs/docker-compose.yml down --volumes --rmi all
+clean:
+	@ $(CC) $(FLAGS) $(COMPOSEFILE) down --volumes --rmi all
+
+fclean: clean
+	sudo rm -rf /home/$(USER)/data/mariadb/*
+	sudo rm -rf /home/$(USER)/data/wordpress/*
+
+re: fclean all
+
+.PHONY: all up down clean fclean re
