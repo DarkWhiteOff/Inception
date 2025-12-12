@@ -16,7 +16,7 @@ wp config set --allow-root DB_HOST "mariadb:3306"
 
 if ! wp core is-installed --allow-root --url="https://$DOMAIN_NAME"; then
   wp core install --allow-root \
-    --url="$DOMAIN_NAME" \
+    --url="https://$DOMAIN_NAME" \
     --title="My WordPress Site" \
     --admin_user="$WP_ADMIN_USER" \
     --admin_password="$WP_ADMIN_PASS" \
