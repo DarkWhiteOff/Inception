@@ -3,3 +3,5 @@ user         = mysql
 datadir      = /var/lib/mysql
 bind-address = 0.0.0.0
 port         = 3306
+
+innodb_use_native_aio = 0
