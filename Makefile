@@ -3,7 +3,13 @@ COMPOSEFILE = srcs/docker-compose.yml
 CC = docker compose
 FLAGS = -f
 
+DOMAIN_NAME := $(shell sed -n 's/^DOMAIN_NAME=//p' srcs/.env | tr -d '\r')
+
 all: up
+
+hosts: ; @grep -q "\b$(DOMAIN_NAME)\b" /etc/hosts || echo "127.0.0.1 $(DOMAIN_NAME)" | sudo tee -a /etc/hosts >/dev/null
+
+unhosts: ; @sudo sed -i.bak "/\b$(DOMAIN_NAME)\b/d" /etc/hosts
 
 up:
 	@ $(CC) $(FLAGS) $(COMPOSEFILE) up --build
@@ -20,7 +26,7 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all up down clean fclean re
+.PHONY: hosts unhosts all up down clean fclean re
 
 # Container solo
 # docker build srcs/requirements/mariadb -t mariadb -> build une image depuis le Dockerfile en lui donnant un nom
