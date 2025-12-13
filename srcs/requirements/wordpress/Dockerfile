@@ -18,6 +18,4 @@ COPY	conf/www.conf /etc/php/8.2/fpm/pool.d/www.conf
 COPY    tools/wordpress_setup.sh /usr/local/bin/wordpress_setup.sh
 RUN     chmod +x /usr/local/bin/wordpress_setup.sh
 
-RUN     ln -sf /bin/true /usr/sbin/sendmail
-
-CMD     ["/usr/local/bin/wordpress_setup.sh"]
+ENTRYPOINT     ["/usr/local/bin/wordpress_setup.sh"]
