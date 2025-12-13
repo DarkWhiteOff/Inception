@@ -4,8 +4,7 @@ set -e
 mkdir -p /run/php
 chown -R www-data:www-data /run/php /var/www/wordpress
 
-until mysql -h mariadb -u"${MARIADB_USER}" -p"${MARIADB_PASSWORD}" \
-  -e "SELECT 1;" 1>/dev/null 2>&1; do
+until mysqladmin -h mariadb -u"${MARIADB_USER}" -p"${MARIADB_PASSWORD}" ping; do
   sleep 1
 done
 

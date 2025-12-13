@@ -6,24 +6,21 @@ DATADIR="/var/lib/mysql"
 mkdir -p /run/mysqld "$DATADIR"
 chown -R mysql:mysql /run/mysqld "$DATADIR"
 
+INIT_FL=""
+
 if [ ! -d "$DATADIR/mysql" ]; then
     echo ">> Initialisation de MariaDB..."
     mariadb-install-db --user=mysql --datadir="$DATADIR"
 
-    mysqld_safe --user=mysql --datadir="$DATADIR" &
-
-    until mysqladmin ping --silent; do
-        sleep 1
-    done
-
-    mysql -uroot <<EOF
+    cat > /tmp/init.sql <<EOF
 ALTER USER 'root'@'localhost' IDENTIFIED BY '${MARIADB_ROOT_PASSWORD}';
-CREATE DATABASE IF NOT EXISTS ${MARIADB_DATABASE};
+CREATE DATABASE IF NOT EXISTS \`${MARIADB_DATABASE}\`;
 CREATE USER IF NOT EXISTS '${MARIADB_USER}'@'%' IDENTIFIED BY '${MARIADB_PASSWORD}';
-GRANT ALL PRIVILEGES ON ${MARIADB_DATABASE}.* TO '${MARIADB_USER}'@'%';
+GRANT ALL PRIVILEGES ON \`${MARIADB_DATABASE}\`.* TO '${MARIADB_USER}'@'%';
+FLUSH PRIVILEGES;
 EOF
 
-    mysqladmin -uroot -p"${MARIADB_ROOT_PASSWORD}" shutdown
+    INIT_FL="--init-file=/tmp/init.sql"
 fi
 
-exec mysqld_safe --user=mysql --datadir="$DATADIR"
+exec mariadbd --user=mysql --datadir="$DATADIR" $INIT_FL
