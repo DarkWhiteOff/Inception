@@ -26,13 +26,12 @@ clean:
 	@ $(CC) $(FLAGS) $(COMPOSEFILE) down --volumes --rmi all
 
 fclean: clean
-	sudo rm -rf /home/$(USER)/data/mariadb/*
-	sudo rm -rf /home/$(USER)/data/wordpress/*
-	sudo rm -rf /home/$(USER)/data/mariadb/.mariadb_initialized
+	sudo rm -rf /home/$(USER)/data/mariadb/.*
+	sudo rm -rf /home/$(USER)/data/wordpress/.*
 
 re: fclean all
 
-.PHONY: hosts unhosts all up down clean fclean re
+.PHONY: all data hosts unhosts up down clean fclean re
 
 # Container solo
 # docker build srcs/requirements/mariadb -t mariadb -> build une image depuis le Dockerfile en lui donnant un nom
