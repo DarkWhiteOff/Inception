@@ -10,7 +10,7 @@ all: up
 data :
 	sudo mkdir -p /home/$(USER)/data/mariadb
 	sudo mkdir -p /home/$(USER)/data/wordpress
-	chown -R $(USER) /home/$(USER)/data
+	sudo chown -R $(USER) /home/$(USER)/data
 
 hosts: ; @grep -q "\b$(DOMAIN_NAME)\b" /etc/hosts || echo "127.0.0.1 $(DOMAIN_NAME)" | sudo tee -a /etc/hosts >/dev/null
 
