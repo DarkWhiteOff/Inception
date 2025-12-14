@@ -7,8 +7,7 @@ mkdir -p /run/mysqld "${DATADIR}"
 chown -R mysql /run/mysqld "${DATADIR}"
 
 INIT_FL=""
-
-if [ ! -d "${DATADIR}/mysql" ]; then
+if [ ! -f /var/lib/mysql/.mariadb_initialized ]; then
     echo ">> Initialisation de MariaDB..."
     mariadb-install-db
 
@@ -25,6 +24,7 @@ FLUSH PRIVILEGES;
 EOF
 
     INIT_FL="--init-file=/tmp/init.sql"
+    touch /var/lib/mysql/.mariadb_initialized
 fi
 
 exec mariadbd $INIT_FL
