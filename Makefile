@@ -28,6 +28,7 @@ clean:
 fclean: clean
 	sudo rm -rf /home/$(USER)/data/mariadb/*
 	sudo rm -rf /home/$(USER)/data/wordpress/*
+	sudo rm -rf /home/$(USER)/data/mariadb/.mariadb_initialized
 
 re: fclean all
 
