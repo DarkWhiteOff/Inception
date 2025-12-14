@@ -1,0 +1,122 @@
+make
+[+] Building 11.1s (38/38) FINISHED                                             
+ => [internal] load local bake definitions                                 0.0s
+ => => reading from stdin 1.46kB                                           0.0s
+ => [mariadb internal] load build definition from Dockerfile               0.0s
+ => => transferring dockerfile: 353B                                       0.0s
+ => [wordpress internal] load build definition from Dockerfile             0.0s
+ => => transferring dockerfile: 763B                                       0.0s
+ => [nginx internal] load build definition from Dockerfile                 0.1s
+ => => transferring dockerfile: 332B                                       0.0s
+ => [mariadb internal] load metadata for docker.io/library/debian:bookwor  0.2s
+ => [nginx internal] load .dockerignore                                    0.0s
+ => => transferring context: 34B                                           0.0s
+ => [mariadb internal] load .dockerignore                                  0.0s
+ => => transferring context: 34B                                           0.0s
+ => [wordpress internal] load .dockerignore                                0.0s
+ => => transferring context: 34B                                           0.0s
+ => [wordpress 1/6] FROM docker.io/library/debian:bookworm@sha256:7e5bc0e  0.0s
+ => => resolve docker.io/library/debian:bookworm@sha256:7e5bc0e499a8d50cb  0.0s
+ => [mariadb internal] load build context                                  0.0s
+ => => transferring context: 130B                                          0.0s
+ => [wordpress internal] load build context                                0.0s
+ => => transferring context: 128B                                          0.0s
+ => [nginx internal] load build context                                    0.0s
+ => => transferring context: 475B                                          0.0s
+ => CACHED [mariadb 2/6] RUN  apt update -y && apt upgrade -y              0.0s
+ => CACHED [wordpress  3/13] RUN     apt install wget php mariadb-client   0.0s
+ => CACHED [wordpress  4/13] WORKDIR /var/www                              0.0s
+ => CACHED [wordpress  5/13] RUN  WGET -q https://fr.wordpress.org/latest  0.0s
+ => CACHED [wordpress  6/13] RUN  TAR -xzf latest-fr_FR.tar.gz && rm -f l  0.0s
+ => CACHED [wordpress  7/13] RUN     wget -q https://raw.githubuserconten  0.0s
+ => CACHED [wordpress  8/13] RUN     chmod +x wp-cli.phar && mv wp-cli.ph  0.0s
+ => CACHED [wordpress  9/13] WORKDIR /var/www/wordpress                    0.0s
+ => CACHED [wordpress 10/13] RUN     mv wp-config-sample.php wp-config.ph  0.0s
+ => CACHED [wordpress 11/13] COPY CONF/WWW.CONF /etc/php/8.2/fpm/pool.d/w  0.0s
+ => CACHED [wordpress 12/13] COPY    tools/wordpress_setup.sh /usr/local/  0.0s
+ => CACHED [wordpress 13/13] RUN     chmod +x /usr/local/bin/wordpress_se  0.0s
+ => [wordpress] exporting to image                                        10.4s
+ => => exporting layers                                                    0.0s
+ => => exporting manifest sha256:97129748951b9674ac89c86674e52eaed4d27ad4  0.0s
+ => => exporting config sha256:6b3b4671e4fa5bdab368efd6a11f7157705c0cb6b8  0.0s
+ => => exporting attestation manifest sha256:1ceefcf4220e1d53fb2c5a25756e  0.1s
+ => => exporting manifest list sha256:826ed9508cda466aa59d0529345352c8abd  0.1s
+ => => naming to docker.io/library/wordpress:latest                        0.0s
+ => => unpacking to docker.io/library/wordpress:latest                    10.0s
+ => CACHED [nginx 3/6] RUN  apt install nginx openssl -y                   0.0s
+ => CACHED [nginx 4/6] COPY CONF/NGINX.CONF /etc/nginx/nginx.conf          0.0s
+ => [nginx 5/6] COPY    tools/nginx_setup.sh /usr/local/bin/nginx_setup.s  0.1s
+ => CACHED [mariadb 3/6] RUN  apt install mariadb-server -y                0.0s
+ => CACHED [mariadb 4/6] COPY conf/50-server.cnf /etc/mysql/mariadb.conf.  0.0s
+ => CACHED [mariadb 5/6] COPY tools/mariadb_setup.sh /usr/local/bin/maria  0.0s
+ => CACHED [mariadb 6/6] RUN  chmod +x /usr/local/bin/mariadb_setup.sh     0.0s
+ => [mariadb] exporting to image                                           9.3s
+ => => exporting layers                                                    0.0s
+ => => exporting manifest sha256:142e9e7d5635a9ad902e2e971b40020cdb8cb83f  0.0s
+ => => exporting config sha256:d86b013051542abcbdc083333e2f71561209cb7b42  0.0s
+ => => exporting attestation manifest sha256:bc2156c5baed4595ab3043ab1199  0.1s
+ => => exporting manifest list sha256:f5fcc520f76365845f769af101989d1fd22  0.1s
+ => => naming to docker.io/library/mariadb:latest                          0.0s
+ => => unpacking to docker.io/library/mariadb:latest                       8.9s
+ => [nginx 6/6] RUN     chmod +x /usr/local/bin/nginx_setup.sh             0.9s
+ => [nginx] exporting to image                                             1.2s
+ => => exporting layers                                                    0.2s
+ => => exporting manifest sha256:5bf3df000d99eb64f131cdc469a20f5c1128b613  0.0s
+ => => exporting config sha256:53f126bf8eedafa5552c1bf02ef7447c4507607b9a  0.0s
+ => => exporting attestation manifest sha256:a8509710516d02d01e90fe2b2dd0  0.1s
+ => => exporting manifest list sha256:6c139dd530e032cf88b176a1cd525900e36  0.0s
+ => => naming to docker.io/library/nginx:latest                            0.0s
+ => => unpacking to docker.io/library/nginx:latest                         0.7s
+ => [nginx] resolving provenance for metadata file                         0.0s
+ => [mariadb] resolving provenance for metadata file                       0.0s
+ => [wordpress] resolving provenance for metadata file                     0.0s
+[+] up 9/9
+ ✔ Image nginx           Built                                            11.2s 
+ ✔ Image mariadb         Built                                            11.2s 
+ ✔ Image wordpress       Built                                            11.2s 
+ ✔ Network Inception     Created                                           0.1s 
+ ✔ Volume srcs_mariadb   Created                                           0.0s 
+ ✔ Volume srcs_wordpress Created                                           0.0s 
+ ✔ Container mariadb     Created                                           1.1s 
+ ✔ Container wordpress   Created                                           1.1s 
+ ✔ Container nginx       Created                                           0.1s 
+Attaching to mariadb, nginx, wordpress
+mariadb  | >> Initialisation de MariaDB...
+mariadb  | mysql.user table already exists!
+mariadb  | Run mysql_upgrade, not mysql_install_db
+mariadb  | 2025-12-14 23:22:18 0 [Note] Starting MariaDB 10.11.14-MariaDB-0+deb12u2 source revision 053f9bcb5b147bf00edb99e1310bae9125b7f125 server_uid nx3FHzXp96tpUAHgkfXZkSWPFPs= as process 1
+mariadb  | 2025-12-14 23:22:18 0 [Note] InnoDB: Compressed tables use zlib 1.2.13
+mariadb  | 2025-12-14 23:22:18 0 [Note] InnoDB: Number of transaction pools: 1
+mariadb  | 2025-12-14 23:22:18 0 [Note] InnoDB: Using crc32 + pclmulqdq instructions
+mariadb  | 2025-12-14 23:22:18 0 [Note] mariadbd: O_TMPFILE is not supported on /tmp (disabling future attempts)
+mariadb  | 2025-12-14 23:22:18 0 [Warning] mariadbd: io_uring_queue_init() failed with EPERM: sysctl kernel.io_uring_disabled has the value 2, or 1 and the user of the process is not a member of sysctl kernel.io_uring_group. (see man 2 io_uring_setup).
+mariadb  | create_uring failed: falling back to libaio
+mariadb  | 2025-12-14 23:22:18 0 [Note] InnoDB: native AIO failed: falling back to innodb_use_native_aio=OFF
+mariadb  | 2025-12-14 23:22:18 0 [Note] InnoDB: innodb_buffer_pool_size_max=128m, innodb_buffer_pool_size=128m
+mariadb  | 2025-12-14 23:22:18 0 [Note] InnoDB: Completed initialization of buffer pool
+mariadb  | 2025-12-14 23:22:18 0 [Note] InnoDB: File system buffers for log disabled (block size=512 bytes)
+mariadb  | 2025-12-14 23:22:19 0 [Note] InnoDB: End of log at LSN=46980
+mariadb  | 2025-12-14 23:22:19 0 [Note] InnoDB: 128 rollback segments are active.
+mariadb  | 2025-12-14 23:22:19 0 [Note] InnoDB: Setting file './ibtmp1' size to 12.000MiB. Physically writing the file full; Please wait ...
+mariadb  | 2025-12-14 23:22:19 0 [Note] InnoDB: File './ibtmp1' size is now 12.000MiB.
+mariadb  | 2025-12-14 23:22:19 0 [Note] InnoDB: log sequence number 46980; transaction id 14
+mariadb  | 2025-12-14 23:22:19 0 [Note] Plugin 'FEEDBACK' is disabled.
+mariadb  | 2025-12-14 23:22:19 0 [Note] InnoDB: Loading buffer pool(s) from /var/lib/mysql/ib_buffer_pool
+wordpress  | ERROR 2002 (HY000): Can't connect to server on 'mariadb' (115)
+mariadb    | 2025-12-14 23:22:19 0 [Note] Server socket created on IP: '0.0.0.0', port: '3306'.
+mariadb    | 2025-12-14 23:22:19 0 [Note] InnoDB: Buffer pool(s) load completed at 251214 23:22:19
+mariadb    | 2025-12-14 23:22:19 0 [Note] mariadbd: ready for connections.
+mariadb    | Version: '10.11.14-MariaDB-0+deb12u2'  socket: '/run/mysqld/mysqld.sock'  port: 3306  Debian 12
+nginx      | .+...+....+...........+.........+.+...............+..+.+...........+.........+.......+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*....+...+.......+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*..+.........+................+.........+..+...+...+.........+.+.....+.......+.....+.+..+....+.........+.....+.+......+..+...+............+......+.+........+.+......+.....+......+...+.+......+........+.........+............+...+.+......+......+...............+...............+..+.+..+...+.+...........+...............+...+....+..+......+....+........+...+.......+.....+...+..........+.................+..........+..+.+.........+......+...+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+nginx      | ...+........+...+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*.+...+......+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*....+...+.....+......+.........+.+.....+.......+..+.+......+.....................+.....+.......+..+....+...........+.+...+...............+..+.............+......+......+..+.+...........+...+...+.......+..+.+.....+....+..............+.......+..............+...+......+.......+.....+...+......+.+...+............+...+......+......+..............+.............+......+..+............+...+.......+.....+...+...+......+....+.....+...................+...+..+.............+.....+.......+........+.............+......+......+.....+..........+..+.+.................+....+.....+..........+.........+.....+....+.....+.+..+.........+....+..+...............+..........+..+............+...+............+......+...+.+.........+.....+.........+.+......+.....+...+.............+...+...........+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+nginx      | -----
+wordpress  | 1
+wordpress  | 1
+wordpress  | Success: Updated the constant 'DB_NAME' in the 'wp-config.php' file with the value 'wp'.
+wordpress  | Success: Updated the constant 'DB_USER' in the 'wp-config.php' file with the value 'ziggy'.
+wordpress  | Success: Updated the constant 'DB_PASSWORD' in the 'wp-config.php' file with the value 'hello'.
+wordpress  | Success: Updated the constant 'DB_HOST' in the 'wp-config.php' file with the value 'mariadb:3306'.
+wordpress  | sh: 1: /usr/sbin/sendmail: not found
+wordpress  | Success: WordPress installed successfully.
+wordpress  | Success: Created user 2.
+wordpress  | >> SERVER IS RUNNING...
