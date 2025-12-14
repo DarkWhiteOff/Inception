@@ -7,6 +7,10 @@ DOMAIN_NAME := $(shell sed -n 's/^DOMAIN_NAME=//p' srcs/.env | tr -d '\r')
 
 all: up
 
+data :
+	sudo mkdir -p /home/$(USER)/data/mariadb
+	sudo mkdir -p /home/$(USER)/data/wordpress
+
 hosts: ; @grep -q "\b$(DOMAIN_NAME)\b" /etc/hosts || echo "127.0.0.1 $(DOMAIN_NAME)" | sudo tee -a /etc/hosts >/dev/null
 
 unhosts: ; @sudo sed -i.bak "/\b$(DOMAIN_NAME)\b/d" /etc/hosts
