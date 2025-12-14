@@ -19,3 +19,5 @@ COPY    tools/wordpress_setup.sh /usr/local/bin/wordpress_setup.sh
 RUN     chmod +x /usr/local/bin/wordpress_setup.sh
 
 ENTRYPOINT     ["/usr/local/bin/wordpress_setup.sh"]
+
+# si /var/www/wordpress n'existe pas il est créé automatiquement lors du bind mount ? voir mariadb + wordpress
