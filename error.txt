@@ -1,2 +1,2 @@
-mariadb    | 2025-12-14  9:10:51 6 [Warning] Aborted connection 6 to db: 'unconnected' user: 'unauthenticated' host: 'wordpress.Inception' (This connection closed normally without authentication)
-wordpress  | ERROR 2002 (HY000): Received error packet before completion of TLS handshake. The authenticity of the following error cannot be verified: 1130 - Host 'wordpress.Inception' is not allowed to connect to this MariaDB server
+unable to get image 'wordpress': permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get "http://%2Fvar%2Frun%2Fdocker.sock/v1.51/images/wordpress/json": dial unix /var/run/docker.sock: connect: permission denied
+make: *** [Makefile:19: up] Error 1
