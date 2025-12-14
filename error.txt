@@ -1,8 +1,8 @@
-curl: (7) Failed to connect to zamgar.42.fr port 80 after 1 ms: Couldn't connect to server
+    PID COMMAND
+     40 ps
 
-curl: (60) SSL certificate problem: self-signed certificate
-More details here: https://curl.se/docs/sslcerts.html
+    PID COMMAND
+      1 php-fpm8.2
+     21 ps
 
-curl failed to verify the legitimacy of the server and therefore could not
-establish a secure connection to it. To learn more about this situation and
-how to fix it, please visit the web page mentioned above.
+OCI runtime exec failed: exec failed: unable to start container process: exec: "ps": executable file not found in $PATH
