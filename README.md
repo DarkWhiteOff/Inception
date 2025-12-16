@@ -106,9 +106,15 @@ This approach provides a lightweight, modular, and scalable alternative to tradi
 
 ## Resources
 
-- Docker documentation
+- [Docker documentation](https://docs.docker.com/)
 - 42 Inception subject
-- Various websites (to put)
+- [Docker](https://docker-curriculum.com/)
+- [Docker refs](https://docs.docker.com/reference/dockerfile)
+- [Nginx configuration](https://nginx.org/en/docs/beginners_guide.html)
+- [SSL Certificate](https://stackoverflow.com/questions/10175812/how-can-i-generate-a-self-signed-ssl-certificate-using-openssl/10176685#10176685)
+- [Mariadb configuration](https://www.rootusers.com/how-to-install-and-configure-mariadb/#google_vignette)
+- [Wordpress configuration](https://make.wordpress.org/cli/handbook/guides/installing/)
+- [Wp cli commands](https://developer.wordpress.org/cli/commands/)
 
 ---
 
